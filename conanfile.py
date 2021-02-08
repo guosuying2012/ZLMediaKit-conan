@@ -37,6 +37,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/media-server)", '''set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/../media-server)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)", '''INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)
             INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../)''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zltoolkit STATIC ${ToolKit_src_list})", '''#add_library(zltoolkit STATIC ${ToolKit_src_list})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(LINK_LIB_LIST zlmediakit zltoolkit)", '''set(LINK_LIB_LIST zlmediakit ${CONAN_LIBS})''')
 
     def build(self):
