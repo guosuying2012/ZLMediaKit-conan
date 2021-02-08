@@ -42,6 +42,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''#set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(api)", '''#add_subdirectory(api)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(tests)", '''#add_subdirectory(tests)''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", " add_subdirectory(server)", '''# add_subdirectory(server)''')
 
 
     def build(self):
