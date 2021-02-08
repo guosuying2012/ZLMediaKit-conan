@@ -40,6 +40,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zltoolkit STATIC ${ToolKit_src_list})", '''#add_library(zltoolkit STATIC ${ToolKit_src_list})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(LINK_LIB_LIST zlmediakit zltoolkit)", '''set(LINK_LIB_LIST zlmediakit ${CONAN_LIBS})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''#set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(api)", '''#add_subdirectory(api)''')
+
 
     def build(self):
         cmake = CMake(self)
