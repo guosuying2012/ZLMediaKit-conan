@@ -38,12 +38,17 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)", '''INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)
             INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zltoolkit STATIC ${ToolKit_src_list})", '''#add_library(zltoolkit STATIC ${ToolKit_src_list})''')
-        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(LINK_LIB_LIST zlmediakit zltoolkit)", '''set(LINK_LIB_LIST ZLMediaKit ${CONAN_LIBS})''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(LINK_LIB_LIST zlmediakit zltoolkit)", '''set(LINK_LIB_LIST zlmediakit ${CONAN_LIBS})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''#set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(api)", '''#add_subdirectory(api)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(tests)", '''#add_subdirectory(tests)''')
-        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", " add_subdirectory(server)", '''# add_subdirectory(server)''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(server)", '''#add_subdirectory(server)''')
 
+        if self.options.shared:
+        	tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zlmediakit STATIC ${MediaKit_src_list})", ''' add_library(ZLMediaKit SHARED ${MediaKit_src_list}) ''')
+        else:
+        	tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zlmediakit STATIC ${MediaKit_src_list})", ''' add_library(ZLMediaKit STATIC ${MediaKit_src_list}) ''')
+        	pass
 
     def build(self):
         cmake = CMake(self)
