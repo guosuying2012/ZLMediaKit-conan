@@ -21,7 +21,7 @@ class ZLMediaKitConan(ConanFile):
 
     def source(self):
         self.run("git clone https://gitee.com/xia-chu/ZLMediaKit.git")
-        //self.run("git clone https://gitee.com/xia-chu/media-server.git")
+        #self.run("git clone https://gitee.com/xia-chu/media-server.git")
         # This small hack might be useful to guarantee proper /MT /MD linkage
         # in MSVC if the packaged project doesn't have variables to set it
         # properly
