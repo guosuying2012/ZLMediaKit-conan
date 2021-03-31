@@ -133,7 +133,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         cmake.definitions["ENABLE_SERVER"] = "false" # 关闭服务器模块
         cmake.definitions["ENABLE_TESTS"] = "false" # 关闭测试模块
         cmake.definitions["ENABLE_CXX_API"] = "false" # 关闭CXX安装模块
-        cmake.definitions["ENABLE_API"] = "true" # 关闭C API
+        cmake.definitions["ENABLE_API"] = "false" # 关闭C API
         cmake.configure(source_folder="ZLMediaKit")
         cmake.build()
 
