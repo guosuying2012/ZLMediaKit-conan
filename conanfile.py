@@ -26,7 +26,7 @@ class ZLMediaKitConan(ConanFile):
             self.requires("openssl/1.1.1i")
             pass
         if self.options.mysql:
-            self.requires("mysql-connector-c/6.1.11")
+            self.requires("libmysqlclient/8.0.17")
             pass
         if self.options.x264:
             self.requires("libx264/20191217")
