@@ -35,9 +35,7 @@ class ZLMediaKitConan(ConanFile):
 
     def source(self):
         self.run("git clone --depth 1 https://gitee.com/xia-chu/ZLMediaKit")
-        self.run("cd ZLMediaKit")
-        self.run("git submodule update --init")
-        #self.run("git clone https://gitee.com/xia-chu/media-server.git")
+        self.run("git clone https://gitee.com/xia-chu/media-server.git")
         # This small hack might be useful to guarantee proper /MT /MD linkage
         # in MSVC if the packaged project doesn't have variables to set it
         # properly
@@ -50,9 +48,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
 
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)", '''#set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${ToolKit_Root})", '''#INCLUDE_DIRECTORIES(${ToolKit_Root})''')
-        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/media-server)", '''set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/../media-server)''')
-        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)", '''INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)
-        #    INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../)''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/media-server)", '''set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/../media-server)''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)", '''INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)
+            INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zltoolkit STATIC ${ToolKit_src_list})", '''#add_library(zltoolkit STATIC ${ToolKit_src_list})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(LINK_LIB_LIST zlmediakit zltoolkit)", '''set(LINK_LIB_LIST zlmediakit ${CONAN_LIBS})''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''#set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
