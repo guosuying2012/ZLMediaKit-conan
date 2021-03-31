@@ -18,6 +18,7 @@ class ZLMediaKitConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+            pass
 
     def requirements(self):
         if self.options.openssl:
@@ -57,8 +58,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "execute_process(COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/www ${EXECUTABLE_OUTPUT_PATH}/)", '''# execute_process(COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/www ${EXECUTABLE_OUTPUT_PATH}/)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "execute_process(COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/conf/config.ini ${EXECUTABLE_OUTPUT_PATH}/)", '''# execute_process(COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/conf/config.ini ${EXECUTABLE_OUTPUT_PATH}/)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''# set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''# set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "install(DIRECTORY ${ToolKit_Root}", '''# install(DIRECTORY ${ToolKit_Root}''')
-        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''# set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(api)", '''#add_subdirectory(api)''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(tests)", '''#add_subdirectory(tests)''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(server)", '''#add_subdirectory(server)''')
