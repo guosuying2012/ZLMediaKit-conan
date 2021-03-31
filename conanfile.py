@@ -10,8 +10,8 @@ class ZLMediaKitConan(ConanFile):
     description = "A lightweight RTSP/RTMP/HTTP/HLS/HTTP-FLV/WebSocket-FLV/HTTP-TS/HTTP-fMP4/WebSocket-TS/WebSocket-fMP4/GB28181 server and client framework based on C++11"
     topics = ("http", "rtsp", "mp4", "hls", "rtmp", "websocket", "flv", "ts", "http-flv", "gb28181", "websocket-flv", "http-ts", "http-fmp4", "websocket-fmp4", "websocket-ts")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "fPIC": [True, False], "hls": [True, False], "openssl": [True, False], "mysql": [True, False], "faac": [True, False], "x264": [True, False], "mp4": [True, False], "rtpproxy": [True, False], "c_api":[True, False], "cxx_api": [True, False], "mem_debug": [True, False], "asan": [True, False]}
-    default_options = {"shared": False, "fPIC": True, "hls": True, "openssl": True, "mysql": True, "faac": False, "x264": True, "mp4": True, "rtpproxy": True, "c_api": True, "cxx_api": True, "mem_debug": True, "asan": True}
+    options = {"shared": [True, False], "fPIC": [True, False], "hls": [True, False], "openssl": [True, False], "mysql": [True, False], "faac": [True, False], "x264": [True, False], "mp4": [True, False], "rtpproxy": [True, False], "c_api":[True, False], "mem_debug": [True, False], "asan": [True, False]}
+    default_options = {"shared": False, "fPIC": True, "hls": True, "openssl": True, "mysql": True, "faac": False, "x264": True, "mp4": True, "rtpproxy": True, "c_api": True, "mem_debug": True, "asan": True}
     generators = "cmake", "cmake_find_package", "cmake_paths"
     requires = ["ZLToolKit/4.0", "libx264/20191217", "jemalloc/5.2.1"]
 
@@ -46,19 +46,19 @@ conan_basic_setup()
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
 
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${ToolKit_Root})", '''#INCLUDE_DIRECTORIES(${ToolKit_Root})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)", '''#set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)''')
-        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${ToolKit_Root})", '''#INCLUDE_DIRECTORIES(${ToolKit_Root})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/media-server)", '''set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/../media-server)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)", '''INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)
             INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "list(APPEND CXX_API_TARGETS zltoolkit zlmediakit)", '''list(APPEND CXX_API_TARGETS zlmediakit)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_library(zltoolkit STATIC ${ToolKit_src_list})", '''#add_library(zltoolkit STATIC ${ToolKit_src_list})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(LINK_LIB_LIST zlmediakit zltoolkit)", '''set(LINK_LIB_LIST zlmediakit ${CONAN_LIBS})''')
-        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "install(DIRECTORY ${ToolKit_Root}", '''# install(DIRECTORY ${ToolKit_Root}''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "execute_process(COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/www ${EXECUTABLE_OUTPUT_PATH}/)", '''# execute_process(COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/www ${EXECUTABLE_OUTPUT_PATH}/)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "execute_process(COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/conf/config.ini ${EXECUTABLE_OUTPUT_PATH}/)", '''# execute_process(COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/conf/config.ini ${EXECUTABLE_OUTPUT_PATH}/)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''# set_target_properties(zltoolkit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
-        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''# set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
+        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "install(DIRECTORY ${ToolKit_Root}", '''# install(DIRECTORY ${ToolKit_Root}''')
+        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )", '''# set_target_properties(zlmediakit PROPERTIES COMPILE_FLAGS ${VS_FALGS} )''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(api)", '''#add_subdirectory(api)''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(tests)", '''#add_subdirectory(tests)''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "add_subdirectory(server)", '''#add_subdirectory(server)''')
@@ -119,12 +119,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         else:
             cmake.definitions["ENABLE_API"] = "false"
             pass
-        if self.options.cxx_api:
-            cmake.definitions["ENABLE_CXX_API"] = "true"
-            pass
-        else:
-            cmake.definitions["ENABLE_CXX_API"] = "false"
-            pass
         if self.options.mem_debug:
             cmake.definitions["ENABLE_MEM_DEBUG"] = "true"
             pass
@@ -140,6 +134,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
 
         cmake.definitions["ENABLE_SERVER"] = "false" # 关闭服务器模块
         cmake.definitions["ENABLE_TESTS"] = "false" # 关闭测试模块
+        cmake.definitions["ENABLE_CXX_API"] = "false" # 关闭CXX安装模块
         cmake.configure(source_folder="ZLMediaKit")
         cmake.build()
 
