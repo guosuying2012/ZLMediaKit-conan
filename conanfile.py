@@ -34,7 +34,8 @@ class ZLMediaKitConan(ConanFile):
             pass
 
     def source(self):
-        self.run("git clone https://gitee.com/xia-chu/ZLMediaKit.git")
+        self.run("git clone --depth 1 https://gitee.com/xia-chu/ZLMediaKit")
+        self.run("cd ZLMediaKit")
         self.run("git submodule update --init")
         #self.run("git clone https://gitee.com/xia-chu/media-server.git")
         # This small hack might be useful to guarantee proper /MT /MD linkage
