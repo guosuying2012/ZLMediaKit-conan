@@ -10,8 +10,8 @@ class ZLMediaKitConan(ConanFile):
     description = "A lightweight RTSP/RTMP/HTTP/HLS/HTTP-FLV/WebSocket-FLV/HTTP-TS/HTTP-fMP4/WebSocket-TS/WebSocket-fMP4/GB28181 server and client framework based on C++11"
     topics = ("http", "rtsp", "mp4", "hls", "rtmp", "websocket", "flv", "ts", "http-flv", "gb28181", "websocket-flv", "http-ts", "http-fmp4", "websocket-fmp4", "websocket-ts")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "fPIC": [True, False], "hls": [True, False], "openssl": [True, False], "mysql": [True, False], "faac": [True, False], "x264": [True, False], "mp4": [True, False], "rtpproxy": [True, False], "c_api":[True, False], "mem_debug": [True, False], "asan": [True, False]}
-    default_options = {"shared": False, "fPIC": True, "hls": True, "openssl": True, "mysql": True, "faac": False, "x264": True, "mp4": True, "rtpproxy": True, "c_api": True, "mem_debug": True, "asan": True}
+    options = {"shared": [True, False], "fPIC": [True, False], "hls": [True, False], "openssl": [True, False], "mysql": [True, False], "faac": [True, False], "x264": [True, False], "mp4": [True, False], "rtpproxy": [True, False], "mem_debug": [True, False], "asan": [True, False]}
+    default_options = {"shared": False, "fPIC": True, "hls": True, "openssl": True, "mysql": True, "faac": False, "x264": True, "mp4": True, "rtpproxy": True, "mem_debug": True, "asan": True}
     generators = "cmake", "cmake_find_package", "cmake_paths"
     requires = ["ZLToolKit/4.0", "libx264/20191217", "jemalloc/5.2.1"]
 
@@ -115,12 +115,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         else:
             cmake.definitions["ENABLE_RTPPROXY"] = "false"
             pass
-        if self.options.c_api:
-            cmake.definitions["ENABLE_API"] = "true"
-            pass
-        else:
-            cmake.definitions["ENABLE_API"] = "false"
-            pass
         if not self.settings.os == "Windows":
             if self.options.mem_debug:
                 cmake.definitions["ENABLE_MEM_DEBUG"] = "true"
@@ -139,6 +133,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         cmake.definitions["ENABLE_SERVER"] = "false" # 关闭服务器模块
         cmake.definitions["ENABLE_TESTS"] = "false" # 关闭测试模块
         cmake.definitions["ENABLE_CXX_API"] = "false" # 关闭CXX安装模块
+        cmake.definitions["ENABLE_API"] = "false" # 关闭C API
         cmake.configure(source_folder="ZLMediaKit")
         cmake.build()
 
