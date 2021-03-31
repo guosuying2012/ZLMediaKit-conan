@@ -18,6 +18,7 @@ class ZLMediaKitConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+            del self.options.mem_debug
             pass
 
     def requirements(self):
