@@ -121,13 +121,14 @@ set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
         else:
             cmake.definitions["ENABLE_API"] = "false"
             pass
-        if self.settings.os not "Windows":
+        if not self.settings.os == "Windows":
             if self.options.mem_debug:
                 cmake.definitions["ENABLE_MEM_DEBUG"] = "true"
                 pass
             else:
                 cmake.definitions["ENABLE_MEM_DEBUG"] = "false"
                 pass
+            pass
         if self.options.asan:
             cmake.definitions["ENABLE_ASAN"] = "true"
             pass
