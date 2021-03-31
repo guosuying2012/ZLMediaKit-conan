@@ -46,7 +46,7 @@ conan_basic_setup()
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})''')
 
-        # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)", '''#set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)''')
+        tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)", '''#set(ToolKit_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/ZLToolKit/src)''')
         # tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${ToolKit_Root})", '''#INCLUDE_DIRECTORIES(${ToolKit_Root})''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/3rdpart/media-server)", '''set(MediaServer_Root ${CMAKE_CURRENT_SOURCE_DIR}/../media-server)''')
         tools.replace_in_file("ZLMediaKit/CMakeLists.txt", "INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)", '''INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/3rdpart)
