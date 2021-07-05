@@ -3,7 +3,7 @@ from conans import ConanFile, CMake, tools
 
 class ZLMediaKitConan(ConanFile):
     name = "ZLMediaKit"
-    version = "5.0"
+    version = "6.0"
     license = "MIT"
     author = "xia-chu"
     url = "https://github.com/xia-chu/ZLMediaKit"
